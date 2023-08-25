@@ -1,0 +1,23 @@
+
+.Header{
+    background-color: rgb(141, 161, 234);
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 50px;
+    padding-right: 40px;
+}
+
+.Header img{
+    height: 60px;
+}
+
+.Header div button{
+    height: 50px;
+    width: 100px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 35px;
+    border-radius: 5px;
+}
