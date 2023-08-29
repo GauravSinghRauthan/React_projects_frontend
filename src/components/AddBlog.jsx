@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import '../style.css/form.css'
 
-function AddBlog({onUpdate,prev=[]}){
+
+function AddBlog(){
     const[blogData,setBlogData] = useState({
         title: "",
         img: "",
@@ -9,9 +10,28 @@ function AddBlog({onUpdate,prev=[]}){
         content: ""
     })
     const submitData = ()=>{
-        const newData = [blogData,...prev]
-        onUpdate([blogData,...prev])
-        localStorage.setItem('blogData',JSON.stringify(newData))
+        createBlog(blogData)
+    }
+
+    const createBlog = async (data)=>{
+        try{
+            const resp = await fetch("http://localhost:8080/blog/addblog",{
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body:JSON.stringify({...data,description:data.desc})
+            })
+
+            const parseResp = await resp.json()
+
+            console.log(parseResp)
+            
+        }catch(err){
+            console.log(err.message)
+        }
+        
+
     }
     return(
         <div id='formParent'>

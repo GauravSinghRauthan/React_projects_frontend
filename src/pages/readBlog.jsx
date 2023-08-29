@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export const ReadBlog = ({blogData})=>{
-    const {title} = useParams()
+export const ReadBlog = ()=>{
+    const {id} = useParams()
     const [singleData,setSingleData] = useState({})
 
+    const getData = async() => {
+        try{
+            const resp = await fetch(`http://localhost:8080/blog/${id}`)
+            const parseData = await resp.json();
+            setSingleData(parseData || {})
+        }catch(err){
+            console.log(err.message)
+        }
+    }
+
     useEffect(()=>{
-        const singleArray = blogData.filter((e,i)=>{
-            return title==i
-        });
-        setSingleData({...singleArray[0]});
-        console.log(singleArray)
-    },[title,blogData])
+        getData();
+    },[])
+
     return (
         <div id="readBlog">
             <img src={singleData?.img} alt="" />
